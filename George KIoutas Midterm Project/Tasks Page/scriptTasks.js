@@ -1,6 +1,6 @@
-// ==========================
+
 // GET HTML ELEMENTS
-// ==========================
+
 
 // Task form fields
 const taskForm = document.querySelector("#taskForm");
@@ -186,11 +186,10 @@ function completeTask(index) {
 }
 
 
-// ==========================
-// EDIT TASK
-// ==========================
 
+// EDIT TASK
 // Load selected task into the form
+
 function editTask(index) {
 
     taskName.value = tasks[index].name;
