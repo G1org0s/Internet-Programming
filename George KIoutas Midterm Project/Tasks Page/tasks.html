@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The.Box tasks page">
+    <meta name="George Kioutas" content="Task manager page for The.Box">
+    <title>The.Box / Tasks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesTasks.css">
+    <link rel="stylesheet" href="../DarkMode/DarkMode.css">
+    <script src="../DarkMode/DarkMode.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="scriptTasks.js" defer></script>
+</head>
+
+<body>
+
+
+
+    <!-- Header with the app name, a short description -->
+
+
+    <header class="bg-info text-white sticky-top">
+        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                <div>
+                    <a href="../Home Page/index.html" class="text-white text-decoration-none">
+                        <h1 class="mb-4 fw-bold">The.Box</h1>
+                    </a>
+                    <p class="mb-0">The.Box for you to manage</p>
+                </div>
+
+
+                <!-- Navigation Links and bar + dark mode toggle button -->
+
+
+                <nav class="d-flex gap-3 flex-wrap">
+                    <a href="../Home Page/index.html" class="btn btn-light">Home</a>
+                    <a href="../Tasks Page/tasks.html" class="btn btn-light">Tasks</a>
+                    <a href="../Analytics/analytics.html" class="btn btn-light">Analytics</a>
+                    <a href="../About/about.html" class="btn btn-light">About</a>
+                    <a href="../Contact/contact.html" class="btn btn-light">Contact</a>
+
+                    <button id="darkModeToggle" class="btn btn-dark" type="button">
+                        Dark Mode
+                    </button>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+
+        <!--Gif for the backround and welcome message + button to view tasks page--> 
+
+
+        <article class="tasks-section py-5 bg-light">
+
+
+           <video class="tasks-bg" autoplay muted loop playsinline disablepictureinpicture preload="auto">
+            <source src="./assets/Backround.mp4" type="video/mp4">
+            </video>
+
+
+
+            <!-- Task Manager Table + Manage your tasks title-->
+
+            <div class="container">
+                <h2  class="text-center fw-bold mb-4 manage-tasks-title">Manage Your Tasks</h2>
+
+                <form id="taskForm" class="card task-card p-4 shadow-sm">
+
+                    <div class="mb-4">
+                        <label for="taskName" class="form-label">Task Name</label>
+                        <input type="text" id="taskName" class="form-control" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="taskDescription" class="form-label">Description</label>
+                        <textarea id="taskDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="taskDueDate" class="form-label">Due Date</label>
+                        <input type="date" id="taskDueDate" class="form-control" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="taskPriority" class="form-label">Priority</label>
+                        <select id="taskPriority" class="form-select">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-info text-white">Add Task </button>
+
+                </form>
+            </div>
+        </article>
+
+
+
+        <!-- Section for the task summary (total tasks, pending tasks, completed tasks) with a button to clear the task summary. -->
+
+
+
+        <article class="py-5">
+            <div class="container">
+                <h2 class="text-center fw-bold mb-4">Task Summary</h2>
+
+                <div class="row g-4 text-center">
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h3 class="h5">Active Tasks</h3>
+                                <p id="totalTasks" class="display-6 fw-bold">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h3 class="h5">Deleted Tasks</h3>
+                                <p id="pendingTasks" class="display-6 fw-bold">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h3 class="h5">Completed Tasks</h3>
+                                <p id="completedTasks" class="display-6 fw-bold">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+
+
+
+
+
+            <!-- Section for the task list with options to filter and sort the tasks, and a button to clear the task list. -->
+
+
+
+        <article class="py-5 bg-light">
+            <div class="container">
+                <h2  class="TaskListTitle fw-bold mb-4 task-list-title">Task List</h2>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-4">
+                        <label for="priorityFilter" class="form-label">Filter by Priority</label>
+                        <select id="priorityFilter" class="form-select">
+                            <option value="All">All</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="sortTasks" class="form-label">Sort Tasks</label>
+                        <select id="sortTasks" class="form-select">
+                            <option value="None">None</option>
+                            <option value="Name">Task Name</option>
+                            <option value="Date">Due Date</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-info">
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="taskTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="bg-light text-dark text-center py-3">
+        <p class="mb-0">&copy; 2026 The.Box. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

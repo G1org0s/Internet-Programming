@@ -1,58 +1,38 @@
-.dark-mode {
-    background-color: #121212;
-    color: white;
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
 }
 
-/* Navbar */
-.dark-mode header {
-    background-color: #0a0a0a !important;
-    border-bottom: 2px solid #0dcaf0;
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    background-color: #e5e5e5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/*navbar*/
-.dark-mode nav .btn-light {
-    background-color: #2b2b2b;
-    color: white;
-    border-color: #444;
+.hero-bg {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    z-index: 0;
 }
 
-.dark-mode nav .btn-light:hover {
-    background-color: #0dcaf0;
-    color: black;
+.hero-content {
+    position: relative;
+    z-index: 2;
 }
 
-/* Dark Mode button */
-.dark-mode #darkModeToggle {
-    background-color: #ffffff;
-    color: black;
-}
-
-/* Hero section */
-.dark-mode .bg-light {
-    background-color: #1e1e1e !important;
-    color: white;
-}
-
-/* Feature Cards */
-.dark-mode .card {
-    background-color: #252525;
-    color: white;
-    border-color: #444;
-}
-
-/* Latest Activity Part*/
-.dark-mode .bg-secondary {
-    background-color: #1b1b1b !important;
-}
-
-.dark-mode .list-group-item {
-    background-color: #252525;
-    color: white;
-    border-color: #444;
-}
-
-/* Footer */
-.dark-mode footer {
-    background-color: #0a0a0a !important;
-    border-top: 2px solid #0dcaf0;
+header.bg-info {
+    background-color: rgb(13, 202, 240) !important;
+    opacity: 1 !important;
+    backdrop-filter: none !important;
 }
