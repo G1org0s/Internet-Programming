@@ -1,0 +1,133 @@
+/* GENERAL FONT */
+body {
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+/* TASK FORM SECTION */
+.tasks-section {
+    position: relative;
+    overflow: hidden;
+    min-height: 650px;
+    background-color: #e5e5e5;
+}
+
+/* BACKGROUND VIDEO */
+.tasks-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* CONTENT ABOVE VIDEO */
+.tasks-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* TASK FORM CARD */
+
+.task-card {
+    max-width: 900px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.90) !important;
+    border-radius: 18px;
+}
+
+/* FORM INPUTS */
+.task-card .form-control,
+.task-card .form-select {
+    border-radius: 10px;
+}
+
+/* ADD TASK BUTTON */
+
+.task-card button {
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* TABLE */
+.table {
+    background-color: white;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+/* PRIORITY BADGES */
+.badge {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+}
+
+/* TASK LIST TITLE */
+.task-list-title {
+    color: #111111;
+}
+
+
+
+/* Forcing Manage your tasks title to be black */
+.tasks-section .manage-tasks-title {
+    color: black !important;
+}
+
+
+
+
+
+
+
+
+
+/* DARK MODE FOR TABLE */
+
+
+
+
+
+/* DARK MODE TASK LIST TITLE */
+.dark-mode .task-list-title {
+    color: white;
+}
+
+/* DARK MODE TABLE */
+.dark-mode .table,
+.dark-mode .table th,
+.dark-mode .table td {
+    background-color: #252525 !important;
+    color: white !important;
+    border-color: #444 !important;
+}
+
+/* DARK MODE TABLE HEADER */
+.dark-mode .table-info th {
+    background-color: #111111 !important;
+    color: white !important;
+}
+
+/* DARK MODE FORM */
+.dark-mode .task-card {
+    background-color: rgba(30, 30, 30, 0.95) !important;
+    color: white;
+}
+
+/* DARK MODE FORM INPUTS */
+.dark-mode .task-card .form-control,
+.dark-mode .task-card .form-select {
+    background-color: #252525;
+    color: white;
+    border-color: #555;
+}
+
+
+
