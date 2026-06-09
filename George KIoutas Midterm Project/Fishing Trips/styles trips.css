@@ -5,12 +5,55 @@ body {
 
 
 
+/* Photo backround */
+
+.trip-board-section {
+    min-height: 850px;
+    display: flex;
+    align-items: center;
+    background-image: url("../Photos/divari\ day.jpeg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Photo backround dark mode only */
+
+.dark-mode .trip-board-section {
+    background-image: url("../Photos/divari\ night.JPG");
+}
 
 
+/* Placing the table in front of the backround */
+
+.trip-board {
+    max-width: 1100px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.90);
+    color: #111111;
+}
 
 
+/* Input style */ 
+
+.trip-board .form-control {
+    border-radius: 10px;
+}
+
+/* Results cards */
+
+.result-dark {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+}
 
 
+/* Readable results in dark mode */
+
+.dark-mode .result-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #111111;
+
+}
 
 
 
