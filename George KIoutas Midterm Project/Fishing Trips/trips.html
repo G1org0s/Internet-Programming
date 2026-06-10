@@ -31,6 +31,7 @@
     <main>
 
         <!-- Trip board planner -->
+
         <article class="trip-board-section py-5">
             <div class="container">
 
@@ -43,6 +44,7 @@
                         <div class="row g-4">
 
                             <!-- Trip name -->
+
                             <div class="col-md-6">
                                 <label for="tripName" class="form-label">Trip Name</label>
                                 <input type="text"
@@ -83,24 +85,18 @@
 
                         </div>
 
-                        <!-- Buttons -->
-                        <button id="checkConditionsBtn"
-                                type="button"
-                                class="btn btn-info mt-4 w-100">
-                            Check Conditions
-                        </button>
-
                         <button type="submit"
-                                class="btn btn-success text-white mt-3 w-100">
+                                class="btn btn-success text-white mt-4 w-100">
                             Save Trip
                         </button>
 
                     </form>
 
                     <!-- API result cards -->
-                    <div class="row g-4 mt-4 text-center">
 
-                        <div class="col-md-3">
+
+                    <div class="row mt-4 text-center justify-content-center">
+                        <div class="col-md-6">
                             <div class="card result-card">
                                 <div class="card-body">
                                     <h2 class="h6">Weather</h2>
@@ -109,36 +105,10 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <div class="card result-card">
-                                <div class="card-body">
-                                    <h2 class="h6">Solunar Phase</h2>
-                                    <p id="solunarResult" class="fw-bold">-</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="card result-card">
-                                <div class="card-body">
-                                    <h2 class="h6">Wind</h2>
-                                    <p id="windResult" class="fw-bold">-</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="card result-card">
-                                <div class="card-body">
-                                    <h2 class="h6">Fishing Rating</h2>
-                                    <p id="ratingResult" class="fw-bold">-</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                     <!-- Pending and completed trips -->
+
                     <div class="row g-4 mt-5">
 
                         <!-- Pending trips table -->
@@ -152,7 +122,6 @@
                                             <th>Trip Name</th>
                                             <th>Location</th>
                                             <th>Date</th>
-                                            <th>Rating</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -169,12 +138,11 @@
 
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover">
-                                    <thead class="table-success">
+                                    <thead class="table-info">
                                         <tr>
                                             <th>Trip Name</th>
                                             <th>Location</th>
                                             <th>Date</th>
-                                            <th>Rating</th>
                                         </tr>
                                     </thead>
 

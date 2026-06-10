@@ -1,14 +1,24 @@
 /* GENERAL FONT */
 body {
     font-family: Tahoma, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Keep the footer at the bottom on short pages */
 
 
-/* Photo backround */
+main {
+    display: flex;
+    flex: 1;
+}
+
+/* Photo background */
 
 .trip-board-section {
-    min-height: 850px;
+    width: 100%;
+    min-height: 100%;
     display: flex;
     align-items: center;
     background-image: url("../Photos/divari\ day.jpeg");
@@ -16,7 +26,7 @@ body {
     background-position: center;
 }
 
-/* Photo backround dark mode only */
+/* Photo background in dark mode */
 
 .dark-mode .trip-board-section {
     background-image: url("../Photos/divari\ night.JPG");
@@ -38,30 +48,4 @@ body {
 .trip-board .form-control {
     border-radius: 10px;
 }
-
-/* Results cards */
-
-.result-dark {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-}
-
-
-/* Readable results in dark mode */
-
-.dark-mode .result-card {
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #111111;
-
-}
-
-
-
-
-
-
-
-
-
-
 
