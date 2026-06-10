@@ -104,3 +104,10 @@
     color: #111111;
 
 }
+
+
+/* Dark mode about section in about page */
+
+.dark-mode .about-section {
+    background-color: #181818;
+}

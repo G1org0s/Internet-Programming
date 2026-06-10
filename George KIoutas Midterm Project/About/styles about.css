@@ -1,0 +1,42 @@
+/* GENERAL PAGE STYLE */
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+
+/* ABOUT SECTION */
+
+.about-section {
+    background-color: #e9f8fb;
+}
+
+
+
+.about-section img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+
+/* TEAM CARDS TO FIT IMAGES*/
+
+
+
+.team-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+
+
+/* CAROUSEL */
+
+.carousel-image {
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+
