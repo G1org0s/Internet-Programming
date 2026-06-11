@@ -40,7 +40,9 @@ async function getFishingQuote() {
         });
 
         // Every quote is followed by its author.
-        // Keep only the quote lines at positions 0, 2, 4, 6...
+        // Keep only the quote lines at positions 0, 2, 4, 6 etc
+
+
         const fishingQuotes = lines.filter(function (line, index) {
             const simpleLine = line.toLowerCase();
 
@@ -86,6 +88,8 @@ const lastActivity = document.querySelector("#LastActivity");
 const tripsStorageKey = "fishTheBoxTrips";
 
 // Read the saved trips from the browser.
+
+
 function getSavedTrips() {
     const savedTrips = localStorage.getItem(tripsStorageKey);
 
@@ -101,12 +105,17 @@ function getSavedTrips() {
 }
 
 // Display the saved trips on the Home page.
+
+
 function showLatestActivity() {
     const trips = getSavedTrips();
 
     lastActivity.innerHTML = "";
 
     // Show a message when there are no trips.
+
+
+
     if (trips.length === 0) {
         const emptyItem = document.createElement("li");
 
@@ -118,6 +127,8 @@ function showLatestActivity() {
     }
 
     // Show the newest activity at the top.
+
+
     trips.sort(function (firstTrip, secondTrip) {
         const firstTime = firstTrip.completedAt || firstTrip.createdAt;
         const secondTime = secondTrip.completedAt || secondTrip.createdAt;
@@ -126,6 +137,8 @@ function showLatestActivity() {
     });
 
     // Create one activity item for every trip.
+
+
     trips.forEach(function (trip) {
         const activityItem = document.createElement("li");
         const tripInformation = document.createElement("div");
@@ -160,4 +173,6 @@ function showLatestActivity() {
 }
 
 // Refresh the activity whenever the Home page is shown.
+
+
 window.addEventListener("pageshow", showLatestActivity);

@@ -1,242 +1,304 @@
-// Get the elements that I need from the HTML page.
+// I get the form and its input fields.
+
 const tripForm = document.querySelector("#tripForm");
 const tripName = document.querySelector("#tripName");
 const tripLocation = document.querySelector("#tripLocation");
 const tripDate = document.querySelector("#tripDate");
 const tripDescription = document.querySelector("#tripDescription");
+
+// I get the weather, table, and sorting elements.
+
 const weatherResult = document.querySelector("#weatherResult");
 const pendingTable = document.querySelector("#pendingTripsTable");
 const completedTable = document.querySelector("#completedTripsTable");
+const sortTrips = document.querySelector("#sortTrips");
 
-// I use this name to save and read the trips.
-const storageName = "fishTheBoxTrips";
+// This array stores all trips.
 
-// This variable keeps the weather that is shown on the page.
-let currentWeather = "";
+let trips = [];
 
 
 // LOCAL STORAGE
 
-// Read the saved trips.
-function getTrips() {
-    const savedTrips = localStorage.getItem(storageName);
+// I read the saved trips when the page opens.
 
-    if (savedTrips === null) {
-        return [];
-    }
+const savedTrips = localStorage.getItem("fishTheBoxTrips");
 
-    try {
-        return JSON.parse(savedTrips);
-    } catch {
-        return [];
-    }
+// If saved trips exist, I change the text back into an array.
+
+if (savedTrips !== null) {
+    trips = JSON.parse(savedTrips);
 }
 
-// Save the trips.
-function saveTrips(trips) {
-    localStorage.setItem(storageName, JSON.stringify(trips));
+// This function saves the trips array in the browser.
+
+function saveTrips() {
+    localStorage.setItem("fishTheBoxTrips", JSON.stringify(trips));
 }
 
 
-// WEATHER
+// TODAY'S WEATHER
 
-// Change the weather code into simple text.
+// This function changes a weather code into simple text.
+
+
 function getWeatherText(code) {
     if (code === 0) {
         return "Clear sky";
     } else if (code <= 3) {
         return "Partly cloudy";
-    } else if (code === 45 || code === 48) {
-        return "Fog";
     } else if (code >= 51 && code <= 67) {
         return "Rain";
-    } else if (code >= 71 && code <= 77) {
-        return "Snow";
     } else if (code >= 80 && code <= 82) {
         return "Rain showers";
     } else if (code >= 95) {
         return "Thunderstorm";
     } else {
-        return "Mixed weather";
+        return "Other weather";
     }
 }
 
-// Get the Athens weather for the selected date.
-async function showWeather() {
-    if (tripDate.value === "") {
-        return;
-    }
+// This function gets the current weather in Athens.
 
+
+async function showWeather() {
     weatherResult.textContent = "Loading weather...";
-    currentWeather = "";
 
     try {
+
+
         // These are the coordinates of Athens.
+
+
         const url =
             "https://api.open-meteo.com/v1/forecast" +
             "?latitude=37.9838" +
             "&longitude=23.7275" +
-            "&daily=weather_code,temperature_2m_max,temperature_2m_min" +
-            "&timezone=Europe%2FAthens" +
-            "&start_date=" +
-            tripDate.value +
-            "&end_date=" +
-            tripDate.value;
+            "&current=temperature_2m,weather_code" +
+            "&timezone=Europe%2FAthens";
+
+        // I send the request and change the result into an object.
+
+
 
         const response = await fetch(url);
         const data = await response.json();
 
-        const code = data.daily.weather_code[0];
-        const minimum = data.daily.temperature_2m_min[0];
-        const maximum = data.daily.temperature_2m_max[0];
+        // I get the current weather code and temperature.
 
-        currentWeather =
-            getWeatherText(code) +
-            " (" +
-            minimum +
-            "°C to " +
-            maximum +
-            "°C)";
 
-        weatherResult.textContent = currentWeather;
+        const code = data.current.weather_code;
+        const temperature = data.current.temperature_2m;
+
+        // I display today's weather.
+
+
+        weatherResult.textContent =
+            getWeatherText(code) + " (" + temperature + " C)";
     } catch {
-        currentWeather = "Weather is not available for this date.";
-        weatherResult.textContent = currentWeather;
+        weatherResult.textContent = "Today's weather is not available.";
     }
 }
 
 
-// TABLES
+// TRIP TABLES
 
-// Add a trip to the pending table.
-function addPendingTrip(trip) {
-    const row = pendingTable.insertRow();
+// This function displays all trips.
 
-    row.insertCell(0).textContent = trip.name;
-    row.insertCell(1).textContent = trip.location;
-    row.insertCell(2).textContent = trip.date;
 
-    const buttonCell = row.insertCell(3);
-    const completeButton = document.createElement("button");
 
-    completeButton.textContent = "Complete";
-    completeButton.className = "btn btn-info btn-sm";
-    buttonCell.appendChild(completeButton);
 
-    completeButton.addEventListener("click", function () {
-        completeTrip(trip.id);
-    });
-}
 
-// Add a trip to the completed table.
-function addCompletedTrip(trip) {
-    const row = completedTable.insertRow();
-
-    row.insertCell(0).textContent = trip.name;
-    row.insertCell(1).textContent = trip.location;
-    row.insertCell(2).textContent = trip.date;
-}
-
-// Show all saved trips.
 function showTrips() {
-    const trips = getTrips();
+
+
+    // I clear the tables before creating the rows again.
+
+
 
     pendingTable.innerHTML = "";
     completedTable.innerHTML = "";
 
-    // Show the most recently updated trips first.
+    // I sort the trips using the selected menu option.
+
+
     trips.sort(function (firstTrip, secondTrip) {
-        const firstTime = firstTrip.completedAt || firstTrip.createdAt;
-        const secondTime = secondTrip.completedAt || secondTrip.createdAt;
-
-        return secondTime - firstTime;
-    });
-
-    trips.forEach(function (trip) {
-        if (trip.status === "completed") {
-            addCompletedTrip(trip);
+        if (sortTrips.value === "latest") {
+            if (firstTrip.date < secondTrip.date) {
+                return 1;
+            } else {
+                return -1;
+            }
         } else {
-            addPendingTrip(trip);
+            if (firstTrip.date > secondTrip.date) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
     });
+
+    // I check every trip in the array.
+
+
+    for (let i = 0; i < trips.length; i++) {
+
+
+        // Completed trips go into the completed table.
+
+
+        if (trips[i].status === "completed") {
+            const row = completedTable.insertRow();
+
+            row.insertCell(0).textContent = trips[i].name;
+            row.insertCell(1).textContent = trips[i].location;
+            row.insertCell(2).textContent = trips[i].date;
+
+            // I create the Delete button.
+            const buttonCell = row.insertCell(3);
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "btn btn-danger btn-sm";
+            buttonCell.appendChild(deleteButton);
+
+            // This event deletes the selected trip.
+
+            deleteButton.addEventListener("click", function () {
+                deleteTrip(i);
+            });
+        } else {
+
+
+            
+            // Pending trips go into the pending table.
+
+            const row = pendingTable.insertRow();
+
+            row.insertCell(0).textContent = trips[i].name;
+            row.insertCell(1).textContent = trips[i].location;
+            row.insertCell(2).textContent = trips[i].date;
+
+            // I create the Complete and Delete buttons.
+
+
+
+            const buttonCell = row.insertCell(3);
+            const completeButton = document.createElement("button");
+            const deleteButton = document.createElement("button");
+
+            completeButton.textContent = "Complete";
+            completeButton.className = "btn btn-info btn-sm";
+
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "btn btn-danger btn-sm ms-2";
+
+            buttonCell.appendChild(completeButton);
+            buttonCell.appendChild(deleteButton);
+
+            // These events complete or delete the selected trip.
+
+
+            completeButton.addEventListener("click", function () {
+                completeTrip(i);
+            });
+
+            deleteButton.addEventListener("click", function () {
+                deleteTrip(i);
+            });
+        }
+    }
 }
 
-// Change one trip from pending to completed.
-function completeTrip(tripId) {
-    const trips = getTrips();
+// This function changes a pending trip to completed.
 
-    trips.forEach(function (trip) {
-        if (trip.id === tripId) {
-            trip.status = "completed";
-            trip.completedAt = Date.now();
-        }
-    });
 
-    saveTrips(trips);
+
+function completeTrip(index) {
+    trips[index].status = "completed";
+
+
+    saveTrips();
     showTrips();
 }
 
-// Save a new trip.
+// This function deletes one trip.
+
+
+function deleteTrip(index) {
+
+
+    // splice removes one item from the selected array position.
+
+
+
+    trips.splice(index, 1);
+
+    saveTrips();
+    showTrips();
+}
+
+
+// ADD A TRIP
+
+// This function runs when the form is submitted.
+
+
+
+
 function addTrip(event) {
+
+
+    // I stop the form from refreshing the page.
+
+
+
     event.preventDefault();
 
-    if (currentWeather === "") {
-        alert("Please wait for the weather to load.");
-        return;
-    }
+    // I create an object using the input values.
 
-    const trips = getTrips();
+
 
     const newTrip = {
-        id: Date.now(),
         name: tripName.value,
         location: tripLocation.value,
         date: tripDate.value,
         description: tripDescription.value,
-        weather: currentWeather,
-        status: "pending",
-        createdAt: Date.now()
+        status: "pending"
     };
 
+    // I add the trip, save it, and refresh the tables.
+
+
+
     trips.push(newTrip);
-    saveTrips(trips);
+    saveTrips();
     showTrips();
 
+    // I clear the form.
+
+
     tripForm.reset();
-    setDate();
-    showWeather();
-}
-
-
-// DATE
-
-// Change a date into the format used by the date input.
-function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return year + "-" + month + "-" + day;
-}
-
-// Select today when the calendar is empty.
-function setDate() {
-    const today = new Date();
-
-    if (tripDate.value === "") {
-        tripDate.value = formatDate(today);
-    }
 }
 
 
 // PAGE START
 
-setDate();
+// I stop the user from selecting previous dates.
+
+
+
+
+const today = new Date().toISOString().split("T")[0];
+tripDate.min = today;
+
+// I load the weather and saved trips.
+
+
+
 showWeather();
 showTrips();
 
-// Get new weather automatically when the date changes.
-tripDate.addEventListener("change", showWeather);
-
-// Save the trip when the form is submitted.
+// I listen for form and sorting changes.
 tripForm.addEventListener("submit", addTrip);
+sortTrips.addEventListener("change", showTrips);

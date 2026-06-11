@@ -99,7 +99,7 @@
                         <div class="col-md-6">
                             <div class="card result-card">
                                 <div class="card-body">
-                                    <h2 class="h6">Weather</h2>
+                                    <h2 class="h6">Today's Athens Weather</h2>
                                     <p id="weatherResult" class="fw-bold">-</p>
                                 </div>
                             </div>
@@ -107,11 +107,28 @@
 
                     </div>
 
+                    <!-- Menu for sorting both trip tables -->
+                     
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-4">
+                            <label for="sortTrips" class="form-label fw-bold">
+                                Sort Trips by Date
+                            </label>
+
+                            <select id="sortTrips" class="form-select">
+                                <option value="earliest">Earliest First</option>
+                                <option value="latest">Latest First</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <!-- Pending and completed trips -->
 
                     <div class="row g-4 mt-5">
 
                         <!-- Pending trips table -->
+
+
                         <div class="col-md-6">
                             <h2 class="h4 fw-bold text-center mb-3">Pending Trips</h2>
 
@@ -133,6 +150,8 @@
                         </div>
 
                         <!-- Completed trips table -->
+
+
                         <div class="col-md-6">
                             <h2 class="h4 fw-bold text-center mb-3">Completed Trips</h2>
 
@@ -143,11 +162,11 @@
                                             <th>Trip Name</th>
                                             <th>Location</th>
                                             <th>Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
 
-                                    <tbody id="completedTripsTable">
-                                    </tbody>
+                                    <tbody id="completedTripsTable"> </tbody>
                                 </table>
                             </div>
                         </div>
