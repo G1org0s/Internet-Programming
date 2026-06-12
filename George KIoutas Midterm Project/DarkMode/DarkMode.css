@@ -106,8 +106,13 @@
 }
 
 
-/* Dark mode about section in about page */
+/* Dark mode about the about page */
 
 .dark-mode .about-section {
+    background-color: #181818;
+}
+
+/* Dark mode about section in contuct page */
+.dark-mode .contact-section {
     background-color: #181818;
 }
