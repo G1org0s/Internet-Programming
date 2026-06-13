@@ -116,3 +116,9 @@
 .dark-mode .contact-section {
     background-color: #181818;
 }
+
+/* Dark mode about section in analytics page */
+
+.dark-mode .analytics-section {
+    background-color: #181818;
+}

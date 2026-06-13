@@ -1,0 +1,34 @@
+/* GENERAL PAGE STYLE */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+/* This keeps the footer at the bottom of the screen. */
+
+main {
+    flex: 1;
+}
+
+
+/* ANALYTICS SECTION */
+
+.analytics-section {
+    background-color: #e9f8fb;
+}
+
+/* This controls the size of the chart card. */
+
+.chart-card {
+    max-width: 650px;
+}
+
+
+/* DARK MODE */
+
+.dark-mode .analytics-section {
+    background-color: #181818;
+}

@@ -13,22 +13,10 @@ const pendingTable = document.querySelector("#pendingTripsTable");
 const completedTable = document.querySelector("#completedTripsTable");
 const sortTrips = document.querySelector("#sortTrips");
 
-// This array stores all trips.
-
-let trips = [];
-
-
 // LOCAL STORAGE
 
-// I read the saved trips when the page opens.
-
-const savedTrips = localStorage.getItem("fishTheBoxTrips");
-
-// If saved trips exist, I change the text back into an array.
-
-if (savedTrips !== null) {
-    trips = JSON.parse(savedTrips);
-}
+// I read the saved trips. If there are no trips, I use an empty array.
+const trips = JSON.parse(localStorage.getItem("fishTheBoxTrips") || "[]");
 
 // This function saves the trips array in the browser.
 
@@ -36,10 +24,62 @@ function saveTrips() {
     localStorage.setItem("fishTheBoxTrips", JSON.stringify(trips));
 }
 
+// These are the five example completed trips in order for the pie chart to show completed examples when the website gets loaded.
+
+const standardTrips = [
+    {
+        name: "Athens Barracuda Trip",
+        location: "Athens",
+        date: "2026-01-12",
+        description: "A fishing trip near the coast of Athens.",
+        status: "completed"
+    },
+    {
+        name: "Pylos Amberjack Trip",
+        location: "Pylos",
+        date: "2026-02-08",
+        description: "A completed sea fishing trip in Pylos.",
+        status: "completed"
+    },
+    {
+        name: "Laurio Match Fishing Day",
+        location: "Laurio",
+        date: "2026-03-15",
+        description: "A relaxing fishing day at Laurio.",
+        status: "completed"
+    },
+    {
+        name: "Agia Marina Egi Trip",
+        location: "Agia Marina",
+        date: "2026-04-10",
+        description: "A completed fishing trip at Agia Marina.",
+        status: "completed"
+    },
+    {
+        name: "Xylokastro Casting Trip",
+        location: "Xylokastro",
+        date: "2026-05-17",
+        description: "A shore fishing trip in Xylokastro.",
+        status: "completed"
+    }
+];
+
+// I add the example trips only the first time the project is opened.
+
+if (localStorage.getItem("standardTripsAdded") === null) {
+    for (let i = 0; i < standardTrips.length; i++) {
+        trips.push(standardTrips[i]);
+    }
+
+    saveTrips();
+    localStorage.setItem("standardTripsAdded", "yes");
+}
+
 
 // TODAY'S WEATHER
 
 // This function changes a weather code into simple text.
+
 
 
 function getWeatherText(code) {
@@ -59,17 +99,11 @@ function getWeatherText(code) {
 }
 
 // This function gets the current weather in Athens.
-
-
 async function showWeather() {
     weatherResult.textContent = "Loading weather...";
 
     try {
-
-
         // These are the coordinates of Athens.
-
-
         const url =
             "https://api.open-meteo.com/v1/forecast" +
             "?latitude=37.9838" +
@@ -80,7 +114,7 @@ async function showWeather() {
         // I send the request and change the result into an object.
 
 
-
+        
         const response = await fetch(url);
         const data = await response.json();
 
@@ -91,6 +125,7 @@ async function showWeather() {
         const temperature = data.current.temperature_2m;
 
         // I display today's weather.
+
 
 
         weatherResult.textContent =
@@ -106,14 +141,9 @@ async function showWeather() {
 // This function displays all trips.
 
 
-
-
-
 function showTrips() {
 
-
     // I clear the tables before creating the rows again.
-
 
 
     pendingTable.innerHTML = "";
@@ -139,101 +169,73 @@ function showTrips() {
     });
 
     // I check every trip in the array.
-
-
     for (let i = 0; i < trips.length; i++) {
+        let row;
 
-
-        // Completed trips go into the completed table.
-
-
+        // I choose the correct table for the trip.
         if (trips[i].status === "completed") {
-            const row = completedTable.insertRow();
-
-            row.insertCell(0).textContent = trips[i].name;
-            row.insertCell(1).textContent = trips[i].location;
-            row.insertCell(2).textContent = trips[i].date;
-
-            // I create the Delete button.
-            const buttonCell = row.insertCell(3);
-            const deleteButton = document.createElement("button");
-
-            deleteButton.textContent = "Delete";
-            deleteButton.className = "btn btn-danger btn-sm";
-            buttonCell.appendChild(deleteButton);
-
-            // This event deletes the selected trip.
-
-            deleteButton.addEventListener("click", function () {
-                deleteTrip(i);
-            });
+            row = completedTable.insertRow();
         } else {
+            row = pendingTable.insertRow();
+        }
+
+        // I add the trip information to the row.
 
 
-            
-            // Pending trips go into the pending table.
+        row.insertCell(0).textContent = trips[i].name;
+        row.insertCell(1).textContent = trips[i].location;
+        row.insertCell(2).textContent = trips[i].date;
 
-            const row = pendingTable.insertRow();
-
-            row.insertCell(0).textContent = trips[i].name;
-            row.insertCell(1).textContent = trips[i].location;
-            row.insertCell(2).textContent = trips[i].date;
-
-            // I create the Complete and Delete buttons.
+        // I create the cell that holds the buttons.
 
 
+        const buttonCell = row.insertCell(3);
 
-            const buttonCell = row.insertCell(3);
+        // Only pending trips need a Complete button.
+        if (trips[i].status === "pending") {
             const completeButton = document.createElement("button");
-            const deleteButton = document.createElement("button");
 
             completeButton.textContent = "Complete";
             completeButton.className = "btn btn-info btn-sm";
-
-            deleteButton.textContent = "Delete";
-            deleteButton.className = "btn btn-danger btn-sm ms-2";
-
             buttonCell.appendChild(completeButton);
-            buttonCell.appendChild(deleteButton);
-
-            // These events complete or delete the selected trip.
-
 
             completeButton.addEventListener("click", function () {
                 completeTrip(i);
             });
-
-            deleteButton.addEventListener("click", function () {
-                deleteTrip(i);
-            });
         }
+
+        // Every trip needs a Delete button.
+
+
+        const deleteButton = document.createElement("button");
+
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "btn btn-danger btn-sm ms-2";
+        buttonCell.appendChild(deleteButton);
+
+        deleteButton.addEventListener("click", function () {
+            deleteTrip(i);
+        });
     }
 }
 
 // This function changes a pending trip to completed.
 
 
-
 function completeTrip(index) {
     trips[index].status = "completed";
-
-
     saveTrips();
     showTrips();
 }
 
 // This function deletes one trip.
 
-
 function deleteTrip(index) {
 
 
+
     // splice removes one item from the selected array position.
-
-
-
     trips.splice(index, 1);
-
     saveTrips();
     showTrips();
 }
@@ -244,19 +246,14 @@ function deleteTrip(index) {
 // This function runs when the form is submitted.
 
 
-
-
 function addTrip(event) {
 
-
     // I stop the form from refreshing the page.
-
 
 
     event.preventDefault();
 
     // I create an object using the input values.
-
 
 
     const newTrip = {
@@ -270,14 +267,11 @@ function addTrip(event) {
     // I add the trip, save it, and refresh the tables.
 
 
-
     trips.push(newTrip);
     saveTrips();
     showTrips();
 
     // I clear the form.
-
-
     tripForm.reset();
 }
 
@@ -285,7 +279,6 @@ function addTrip(event) {
 // PAGE START
 
 // I stop the user from selecting previous dates.
-
 
 
 
@@ -300,5 +293,6 @@ showWeather();
 showTrips();
 
 // I listen for form and sorting changes.
+
 tripForm.addEventListener("submit", addTrip);
 sortTrips.addEventListener("change", showTrips);
