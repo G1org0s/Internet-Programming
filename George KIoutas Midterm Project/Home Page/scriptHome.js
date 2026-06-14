@@ -88,6 +88,8 @@ async function getFishingQuote() {
 getFishingQuote();
 
 // Get another quote when the button is clicked.
+
+
 newQuoteBtn.addEventListener("click", getFishingQuote);
 
 

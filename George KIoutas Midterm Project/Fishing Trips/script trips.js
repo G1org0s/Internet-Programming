@@ -192,30 +192,31 @@ function showTrips() {
         const buttonCell = row.insertCell(3);
 
         // Only pending trips need a Complete button.
-        if (trips[i].status === "pending") {
-            const completeButton = document.createElement("button");
 
-            completeButton.textContent = "Complete";
-            completeButton.className = "btn btn-info btn-sm";
-            buttonCell.appendChild(completeButton);
+
+        if (trips[i].status === "pending") {
+            // Add the Complete button inside the action cell.
+
+            
+            buttonCell.innerHTML =
+                '<button type="button" class="btn btn-info btn-sm">Complete</button>';
+
+            const completeButton = buttonCell.querySelector("button");
 
             completeButton.addEventListener("click", function () {
                 completeTrip(i);
             });
+        } else {
+            // Only completed trips need a Delete button.
+            buttonCell.innerHTML =
+                '<button type="button" class="btn btn-danger btn-sm">Delete</button>';
+
+            const deleteButton = buttonCell.querySelector("button");
+
+            deleteButton.addEventListener("click", function () {
+                deleteTrip(i);
+            });
         }
-
-        // Every trip needs a Delete button.
-
-
-        const deleteButton = document.createElement("button");
-
-        deleteButton.textContent = "Delete";
-        deleteButton.className = "btn btn-danger btn-sm ms-2";
-        buttonCell.appendChild(deleteButton);
-
-        deleteButton.addEventListener("click", function () {
-            deleteTrip(i);
-        });
     }
 }
 
