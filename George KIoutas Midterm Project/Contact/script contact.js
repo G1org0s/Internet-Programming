@@ -6,6 +6,8 @@ const contactSubject = document.querySelector("#contactSubject");
 const contactMessage = document.querySelector("#contactMessage");
 
 // This function runs after the form fields have been validated.
+
+
 function submitContactForm(event) {
 
    

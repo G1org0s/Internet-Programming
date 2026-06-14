@@ -42,9 +42,6 @@ main {
     border-radius: 10px;
 }
 
-
-
-
 /* SMALL SCREENS */
 
 @media (max-width: 576px) {
