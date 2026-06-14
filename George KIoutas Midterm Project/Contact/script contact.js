@@ -1,29 +1,17 @@
-// I get the contact form from the HTML page.
+// Select the contact form and its fields.
 const contactForm = document.querySelector("#contactForm");
-
-// I get every form field so I can read its value.
-
-
 const contactName = document.querySelector("#contactName");
 const contactEmail = document.querySelector("#contactEmail");
 const contactSubject = document.querySelector("#contactSubject");
 const contactMessage = document.querySelector("#contactMessage");
 
-
-
-
-
-
-
-
-
-// This function runs when the contact form is submitted.
-
+// This function runs after the form fields have been validated.
 function submitContactForm(event) {
 
-    
-    // I create the confirmation message using the input values.
+   
 
+
+    // Put the submitted information inside the confirmation message.
 
     const confirmation =
         "Thank you, " + contactName.value + "!\n" +
@@ -31,17 +19,14 @@ function submitContactForm(event) {
         "Subject: " + contactSubject.value + "\n" +
         "Message: " + contactMessage.value;
 
-    // I show the captured details in a pop-up.
+    // Show the confirmation at the top of the screen.
 
 
     alert(confirmation);
 
-    // I clear the form after the message is confirmed.
-
-
+    // Clear the form after the message has been shown.
     contactForm.reset();
 }
 
-
-
-
+// Connect the form submission to the function above.
+contactForm.addEventListener("submit", submitContactForm);

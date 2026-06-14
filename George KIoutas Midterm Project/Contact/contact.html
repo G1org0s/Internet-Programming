@@ -77,7 +77,9 @@
                                            class="form-control"
                                            placeholder="Enter your name"
                                            minlength="2"
-                                           maxlength="50"
+                                           pattern="[A-Za-z ]+"
+                                           maxlength="30"
+                                           title="Use only letters and spaces, up to 30 characters."
                                            required>
                                 </div>
 
@@ -112,7 +114,9 @@
                                            class="form-control"
                                            placeholder="Enter the subject"
                                            minlength="3"
-                                           maxlength="80"
+                                           pattern="[A-Za-z ]+"
+                                           maxlength="30"
+                                           title="Use only letters and spaces, up to 30 characters."
                                            required>
                                 </div>
 
@@ -128,11 +132,10 @@
                                               name="message"
                                               class="form-control"
                                               rows="5"
-                                              placeholder="Write your message"
+                                              placeholder="Max. 200 characters"
                                               minlength="10"
-                                              maxlength="500"
-                                              required>
-                                    </textarea>
+                                              maxlength="200"
+                                              required></textarea>
                                 </div>
 
                                 <!-- Submit button -->
@@ -150,7 +153,7 @@
 
 
 
-                    <div class="col-lg-6">-
+                    <div class="col-lg-6">
                         <div class="card h-100 shadow p-5">
                             <h2 class="h4 fw-bold mb-4">Contact Information</h2>
 

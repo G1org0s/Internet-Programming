@@ -1,0 +1,43 @@
+/* GENERAL PAGE STYLE */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+/* This keeps the footer at the bottom when the page is short. */
+
+main {
+    flex: 1;
+}
+
+
+/* REVIEWS SECTION */
+
+.reviews-section {
+    background-color: #e9f8fb;
+}
+
+/* Extra reviews can be viewed by scrolling instead of making the card taller. */
+
+#reviewsList {
+    height: 500px;
+    overflow-y: auto;
+}
+
+/* Keep the table inside the card. */
+
+#reviewsList table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Long review messages continue on a new line. */
+
+#reviewsList th,
+#reviewsList td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}

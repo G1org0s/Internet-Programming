@@ -4,6 +4,8 @@ const dailyQuote = document.querySelector("#DailyQuote");
 const newQuoteBtn = document.querySelector("#newQuoteBtn");
 
 // Get fishing quotes from a public API.
+
+
 async function getFishingQuote() {
     dailyQuote.textContent = "Finding a fishing quote for you...";
 
@@ -26,11 +28,16 @@ async function getFishingQuote() {
         const data = await response.json();
 
         // The API stores the page inside an object with a number as its key.
+
         const pages = Object.values(data.query.pages);
         const fishingPageText = pages[0].extract;
 
         // Keep only the Quotes section of the page.
+
+
         const quoteSection = fishingPageText
+
+
             .split("== Quotes ==")[1]
             .split("== See also ==")[0];
 
@@ -64,6 +71,8 @@ async function getFishingQuote() {
         }
 
         // Select one random quote.
+
+
         const randomNumber = Math.floor(
             Math.random() * fishingQuotes.length
         );
@@ -126,15 +135,9 @@ function showLatestActivity() {
         return;
     }
 
-    // Show the newest activity at the top.
+    // New trips are added at the end, so reverse puts them at the top.
 
-
-    trips.sort(function (firstTrip, secondTrip) {
-        const firstTime = firstTrip.completedAt || firstTrip.createdAt;
-        const secondTime = secondTrip.completedAt || secondTrip.createdAt;
-
-        return secondTime - firstTime;
-    });
+    trips.reverse();
 
     // Create one activity item for every trip.
 
