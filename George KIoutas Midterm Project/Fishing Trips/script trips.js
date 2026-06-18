@@ -12,6 +12,9 @@ const weatherResult = document.querySelector("#weatherResult");
 const pendingTable = document.querySelector("#pendingTripsTable");
 const completedTable = document.querySelector("#completedTripsTable");
 const sortTrips = document.querySelector("#sortTrips");
+const totalTrips = document.querySelector("#totalTrips");
+const pendingTrips = document.querySelector("#pendingTrips");
+const completedTrips = document.querySelector("#completedTrips");
 
 // LOCAL STORAGE
 
@@ -149,6 +152,10 @@ function showTrips() {
     pendingTable.innerHTML = "";
     completedTable.innerHTML = "";
 
+    // These variables count the pending and completed trips.
+    let pendingCount = 0;
+    let completedCount = 0;
+
     // I sort the trips using the selected menu option.
 
 
@@ -173,10 +180,13 @@ function showTrips() {
         let row;
 
         // I choose the correct table for the trip.
+
         if (trips[i].status === "completed") {
             row = completedTable.insertRow();
+            completedCount++;
         } else {
             row = pendingTable.insertRow();
+            pendingCount++;
         }
 
         // I add the trip information to the row.
@@ -207,17 +217,31 @@ function showTrips() {
                 completeTrip(i);
             });
         } else {
-            // Only completed trips need a Delete button.
-            buttonCell.innerHTML =
-                '<button type="button" class="btn btn-danger btn-sm">Delete</button>';
+            // Completed trips can be edited or deleted.
 
-            const deleteButton = buttonCell.querySelector("button");
+
+            buttonCell.innerHTML =
+                '<button type="button" class="btn btn-warning btn-sm edit-button mb-2">Edit</button> ' +
+                '<button type="button" class="btn btn-danger btn-sm delete-button">Delete</button>';
+
+            const editButton = buttonCell.querySelector(".edit-button");
+            const deleteButton = buttonCell.querySelector(".delete-button");
+
+            editButton.addEventListener("click", function () {
+                editTrip(i);
+            });
 
             deleteButton.addEventListener("click", function () {
                 deleteTrip(i);
             });
         }
     }
+
+    // Show the updated numbers inside the summary cards.
+    
+    totalTrips.textContent = trips.length;
+    pendingTrips.textContent = pendingCount;
+    completedTrips.textContent = completedCount;
 }
 
 // This function changes a pending trip to completed.
@@ -225,6 +249,46 @@ function showTrips() {
 
 function completeTrip(index) {
     trips[index].status = "completed";
+    saveTrips();
+    showTrips();
+}
+
+// This function edits a completed trip using simple pop-up boxes.
+
+function editTrip(index) {
+    const newName = prompt("Edit the trip name:", trips[index].name);
+
+    // Cancel stops the editing.
+    if (newName === null) {
+        return;
+    }
+
+    const newLocation = prompt("Edit the location:", trips[index].location);
+
+    if (newLocation === null) {
+        return;
+    }
+
+    const newDate = prompt("Edit the date:", trips[index].date);
+
+    if (newDate === null) {
+        return;
+    }
+
+    const newDescription = prompt(
+        "Edit the description:",
+        trips[index].description
+    );
+
+    if (newDescription === null) {
+        return;
+    }
+
+    trips[index].name = newName;
+    trips[index].location = newLocation;
+    trips[index].date = newDate;
+    trips[index].description = newDescription;
+
     saveTrips();
     showTrips();
 }
