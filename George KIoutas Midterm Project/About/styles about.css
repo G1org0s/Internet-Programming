@@ -39,4 +39,7 @@ body {
     object-position: center;
 }
 
+.kiato-carousel-image {
+    object-position: center top;
+}
 
