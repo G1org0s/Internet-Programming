@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var row = 0;
+            var rows = $("tbody tr");
+
+            // Highlight the next row
+            $("#next").click(function () {
+                rows.css("color", "black");
+                rows.eq(row).css("color", "red");
+                row++;
+
+                // Go back to the first row
+                if (row == rows.length) {
+                    row = 0;
+                }
+            });
+
+            // Remove the highlight
+            $("#clear").click(function () {
+                rows.css("color", "black");
+                row = 0;
+            });
+        });
+    </script>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Office</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>Smith</td>
+                <td>jsmith@sar.com</td>
+                <td>+30 210 1234567</td>
+                <td>PN 514</td>
+            </tr>
+            <tr>
+                <td>Maria</td>
+                <td>Carras</td>
+                <td>mcarras@jsu.edu</td>
+                <td>+30 210 7654321</td>
+                <td>PM 413</td>
+            </tr>
+            <tr>
+                <td>Helen</td>
+                <td>Antypas</td>
+                <td>hantypas@bdg.com</td>
+                <td>+30 2310 654321</td>
+                <td>PK 614</td>
+            </tr>
+            <tr>
+                <td>Afroditi</td>
+                <td>Makri</td>
+                <td>amakri@hughes.edu</td>
+                <td>+30 2310 123456</td>
+                <td>PJ 717</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <button id="next">Next</button>
+    <button id="clear">Clear</button>
+</body>
+</html>

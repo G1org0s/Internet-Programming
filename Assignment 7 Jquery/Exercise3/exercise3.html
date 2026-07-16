@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Get today's date
+            var today = new Date();
+
+            // Sunday has the number 0
+            if (today.getDay() == 0) {
+                $("h1").text("It is Sunday!");
+                $("h1").css("color", "green");
+            } else {
+                $("h1").text("It is not Sunday.");
+                $("h1").css("color", "blue");
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1></h1>
+</body>
+</html>

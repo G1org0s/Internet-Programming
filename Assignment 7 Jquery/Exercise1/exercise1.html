@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // The colors used for the text
+            var colors = ["black", "blue", "green"];
+            var i = 1;
+
+            // Change the color every second
+            setInterval(function () {
+                $("h1").css("color", colors[i]);
+                i++;
+
+                // Start again from black
+                if (i == colors.length) {
+                    i = 0;
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <h1>Hello World!</h1>
+</body>
+</html>
